@@ -25,7 +25,7 @@ async def update_admin(client, message):
         new_admins.append(u.user.id)
     admins[message.chat.id] = new_admins
     await message.reply_text(
-        "✅ Bot **reloaded correctly !**\n✅ **Admin list** has **updated !**"
+        "✅ Bot **doğru şekilde yeniden yüklendi !**\n ✅ **Yönetici listesi** **güncellendi !**"
     )
 
 
@@ -38,11 +38,11 @@ async def skip(client, m: Message):
     if len(m.command) < 2:
         op = await skip_current_song(chat_id)
         if op == 0:
-            await m.reply("❌ nothing is currently playing")
+            await m.reply("❌ şu anda hiçbir şey çalmıyor")
         elif op == 1:
-            await m.reply("✅ __Queues__ **is empty.**\n\n**• userbot leaving voice chat**")
+            await m.reply("✅ __Kuyruklar__ **boş.**\n\n**• userbot sesli sohbetten ayrılıyor**")
         elif op == 2:
-            await m.reply("🗑️ **Clearing the Queues**\n\n**• userbot leaving voice chat**")
+            await m.reply("🗑️ **Kuyrukları Temizleme**\n\n**• sesli sohbetten ayrılan kullanıcı robotu**")
         else:
             buttons = stream_markup(user_id)
             requester = f"[{m.from_user.first_name}](tg://user?id={m.from_user.id})"
@@ -50,11 +50,11 @@ async def skip(client, m: Message):
                 chat_id,
                 photo=f"{IMG_3}",
                 reply_markup=InlineKeyboardMarkup(buttons),
-                caption=f"⏭ **Skipped to the next track.**\n\n🗂 **Name:** [{op[0]}]({op[1]})\n💭 **Chat:** `{chat_id}`\n🧸 **Request by:** {requester}",
+                caption=f"⏭ **Bir sonraki parçaya atlandı.**\n\n🗂 **İsim:** [{op[0]}]({op[1]})\n💭 **Gurup:** `{chat_id}`\n🧸 **Talep eden:** {requester}",
             )
     else:
         skip = m.text.split(None, 1)[1]
-        OP = "🗑 **removed song from queue:**"
+        OP = "🗑 **şarkı kuyruktan kaldırıldı:**"
         if chat_id in QUEUE:
             items = [int(x) for x in skip.split(" ") if x.isdigit()]
             items.sort(reverse=True)
@@ -81,11 +81,11 @@ async def stop(client, m: Message):
         try:
             await call_py.leave_group_call(chat_id)
             clear_queue(chat_id)
-            await m.reply("✅ The userbot has disconnected from the video chat.")
+            await m.reply("✅ Kullanıcı robotunun görüntülü sohbetle bağlantısı kesildi.")
         except Exception as e:
-            await m.reply(f"🚫 **error:**\n\n`{e}`")
+            await m.reply(f"🚫 **Hata:**\n\n`{e}`")
     else:
-        await m.reply("❌ **nothing is streaming**")
+        await m.reply("❌ **hiçbir şey akmıyor**")
 
 
 @Client.on_message(
@@ -202,17 +202,17 @@ async def cbresume(_, query: CallbackQuery):
 async def cbstop(_, query: CallbackQuery):
     a = await _.get_chat_member(query.message.chat.id, query.from_user.id)
     if not a.can_manage_voice_chats:
-        return await query.answer("💡 Only admin with manage video chat permission that can tap this button !", show_alert=True)
+        return await query.answer("💡 Yalnızca bu düğmeye dokunabilen görüntülü sohbet yönetme iznine sahip yönetici !", show_alert=True)
     chat_id = query.message.chat.id
     if chat_id in QUEUE:
         try:
             await call_py.leave_group_call(chat_id)
             clear_queue(chat_id)
-            await query.edit_message_text("✅ **this streaming has ended**", reply_markup=close_mark)
+            await query.edit_message_text("✅ **bu akış sona erdi**", reply_markup=close_mark)
         except Exception as e:
-            await query.edit_message_text(f"🚫 **error:**\n\n`{e}`", reply_markup=close_mark)
+            await query.edit_message_text(f"🚫 **hata:**\n\n`{e}`", reply_markup=close_mark)
     else:
-        await query.answer("❌ nothing is currently streaming", show_alert=True)
+        await query.answer("❌  şu anda hiçbir şey yayınlanmıyor", show_alert=True)
 
 
 @Client.on_callback_query(filters.regex("cbmute"))
