@@ -53,37 +53,37 @@ async def _human_time_duration(seconds):
 )
 async def text_(client: Client, message: Message):
     await message.reply_text(
-        f"""✨ **Welcome {message.from_user.mention()} !**\n
-💭 [{BOT_NAME}](https://t.me/{BOT_USERNAME}) **Allows you to play music and video on groups through the new Telegram's video chats!**
+        f"""✨ **Hoş Geldin {message.from_user.mention()} !**\n
+💭 [{BOT_NAME}](https://t.me/{BOT_USERNAME}) **Yeni Telegram'ın görüntülü sohbetleri aracılığıyla gruplarda müzik ve video oynatmanıza izin verir!**
 
-💡 **Find out all the Bot's commands and how they work by clicking on the » 📚 Commands button!**
+💡 **» 📚 Komutlar düğmesini tıklayarak Bot'un tüm komutlarını ve nasıl çalıştıklarını öğrenin!**
 
-🔖 **To know how to use this bot, please click on the » ❓ Basic Guide button!**
+🔖 **Bu botun nasıl kullanılacağını öğrenmek için lütfen » ❓ Temel Gui düğmesine tıklayın!**
 """,
         reply_markup=InlineKeyboardMarkup(
             [
                 [
                     InlineKeyboardButton(
-                        "➕ Add me to your Group ➕",
+                        "➕ Beni Grubuna ekle ➕",
                         url=f"https://t.me/{BOT_USERNAME}?startgroup=true",
                     )
                 ],
                 
                 [
-                    InlineKeyboardButton("📚 Commands", callback_data="cbcmds"),
-                    InlineKeyboardButton("❤️ Donate", url=f"https://t.me/{OWNER_NAME}"),
+                    InlineKeyboardButton("📚 Komutlar", callback_data="cbcmds"),
+                    InlineKeyboardButton("👨🏻‍💻 Creator", url=f"https://t.me/{OWNER_NAME}"),
                 ],
                 [
                     InlineKeyboardButton(
-                        "💖 Official Group", url=f"https://t.me/{GROUP_SUPPORT}"
+                        "💭 Sohbet Group", url=f"https://t.me/{GROUP_SUPPORT}"
                     ),
                     InlineKeyboardButton(
-                        "😎 Official Channel", url=f"https://t.me/{UPDATES_CHANNEL}"
+                        "🎧 Music Kanal", url=f"https://t.me/{UPDATES_CHANNEL}"
                     ),
                 ],
                 [
                     InlineKeyboardButton(
-                        "😍 Source Code", url="https://github.com/selfie-bd/M.V._PLAYER"
+                        "🌐 Support", url="https://t.me/GalaxyCrime"
                     )
                 ],
             ]
@@ -103,7 +103,7 @@ async def alive(client: Client, message: Message):
             [
                 InlineKeyboardButton("✨ Group", url=f"https://t.me/{GROUP_SUPPORT}"),
                 InlineKeyboardButton(
-                    "📣 Channel", url=f"https://t.me/{UPDATES_CHANNEL}"
+                    "🎧 Music", url=f"https://t.me/{UPDATES_CHANNEL}"
                 ),
             ]
         ]
@@ -123,7 +123,7 @@ async def ping(client: Client, message: Message):
     start = time()
     m_reply = await message.reply_text("pinging...")
     delta_ping = time() - start
-    await m_reply.edit_text("🏓 `PONG!!`\n" f"⚡️ `{delta_ping * 1000:.3f} ms`")
+    await m_reply.edit_text("🏓 `Ping!`\n" f"⚡️ `{delta_ping * 1000:.3f} ms`")
 
 
 @Client.on_message(command(["uptime", f"uptime@{BOT_USERNAME}"]) & ~filters.edited)
@@ -133,8 +133,8 @@ async def get_uptime(client: Client, message: Message):
     uptime = await _human_time_duration(int(uptime_sec))
     await message.reply_text(
         "🤖 bot status:\n"
-        f"• **uptime:** `{uptime}`\n"
-        f"• **start time:** `{START_TIME_ISO}`"
+        f"• **çalışma süresi:** `{uptime}`\n"
+        f"• **Başlangıç ​​saati:** `{START_TIME_ISO}`"
     )
 
 
@@ -145,14 +145,14 @@ async def new_chat(c: Client, m: Message):
     for member in m.new_chat_members:
         if member.id == bot_id:
             return await m.reply(
-                "❤️ **Thanks for adding me to the Group !**\n"
-                "**Promote me as administrator of the group, otherwise I will not be able to work properly**\n\n"
-                "**Once done, type** /reload\n\n"
-                "**New to szrosebot, Touch the below button to for quick setup guide**",
+                "❤️ **Beni Gruba eklediğiniz için teşekkürler !**\n"
+                "Beni grubun yöneticisi olarak ata, yoksa düzgün çalışamam\n\n"
+                "İşiniz bittiğinde, /reload\n\n yazın"
+                "**szrosebot'ta yeni, Hızlı kurulum gui için aşağıdaki düğmeye dokunun**",
                 reply_markup=InlineKeyboardMarkup(
                     [
                         [
-                            InlineKeyboardButton("❤️ Quick setup guide", url="https://t.me/logdcbots/45")
+                            InlineKeyboardButton("👨🏻‍💻 Creator", url="https://t.me/A_I_i_y_e_v_d_i")
                         ]
                     ]
                 )
